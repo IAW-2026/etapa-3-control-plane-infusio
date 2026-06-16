@@ -1,65 +1,30 @@
-import Image from "next/image";
+import { SiteHeader } from "@/app/ui/site-header"
+import { AppsPanel } from "@/app/ui/apps-panel"
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-svh flex flex-col">
+      <SiteHeader />
+
+      <div className="mx-auto grid flex-1 max-w-6xl items-center gap-12 px-6 py-10 md:px-10 md:py-16 lg:grid-cols-2 lg:gap-16">
+        <section className="flex max-w-3xl flex-col pt-2 sm:pt-4 lg:self-center">
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.28em] text-primary sm:text-sm">
+            Control Panel
           </p>
+          <h1 className="font-serif text-[3rem] leading-[0.92] tracking-[-0.03em] text-foreground text-balance sm:text-[3.95rem] md:text-[4.7rem] lg:text-[5.4rem]">
+            <span className="block">Tu operación,</span>
+            <span className="block">bajo control.</span>
+          </h1>
+          <p className="mt-5 max-w-xl text-[0.97rem] leading-8 text-muted-foreground sm:text-[1.05rem]">
+            Ingresá a tu cuenta y gestioná todas tus apps desde un único panel.
+          </p>
+        </section>
+
+        {/* Columna derecha: panel de apps */}
+        <div className="lg:pl-4">
+          <AppsPanel />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+      </div>
+    </main>
+  )
 }
