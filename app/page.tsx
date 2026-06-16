@@ -1,5 +1,5 @@
-import { SiteHeader } from "./ui/site-header"
-import { AppsPanel } from "./ui/apps-panel"
+import { SiteHeader } from "@/app/ui/site-header"
+import { AppsPanel } from "@/app/ui/apps-panel"
 
 export default function Page() {
   return (
