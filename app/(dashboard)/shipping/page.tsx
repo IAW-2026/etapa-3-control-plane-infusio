@@ -7,16 +7,19 @@ const shippingAppUrl =
 const sections = [
   {
     label: 'Envíos',
+    href: "/shipping/shipments",
     description: 'Despachos activos y cambios de estado desde el módulo de shipping.',
     icon: Truck,
   },
   {
     label: 'Usuarios',
+    href: "/shipping/users",
     description: 'Usuarios repartidores y operadores logísticos.',
     icon: User,
   },
   {
     label: 'Métricas',
+    href: "/shipping/metrics",
     description: 'Visualización de datos consolidada.',
     icon: ChartBar
   }
@@ -44,7 +47,7 @@ export default function ShippingPage() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {sections.map(({ label, description, icon: Icon }) => (
+        {sections.map(({ label, href, description, icon: Icon }) => (
           <Link
             key={label}
             href={shippingAppUrl}
