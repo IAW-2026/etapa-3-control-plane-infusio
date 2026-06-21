@@ -1,25 +1,25 @@
 import Link from 'next/link'
-import { BadgeDollarSign, MapPinned, Truck } from 'lucide-react'
+import { Truck, User, ChartBar } from 'lucide-react'
 
 const shippingAppUrl =
   process.env.SHIPPING_APP_URL ?? 'https://proyecto-c-shipping-infusio.vercel.app'
 
 const sections = [
   {
-    label: 'Operación',
-    description: 'Despachos activos, incidencias y cambios de estado desde el módulo de shipping.',
+    label: 'Envíos',
+    description: 'Despachos activos y cambios de estado desde el módulo de shipping.',
     icon: Truck,
   },
   {
-    label: 'Trazabilidad',
-    description: 'Seguimiento de envíos y eventos logísticos para cada orden.',
-    icon: MapPinned,
+    label: 'Usuarios',
+    description: 'Usuarios repartidores y operadores logísticos.',
+    icon: User,
   },
   {
-    label: 'Cobertura y tarifas',
-    description: 'Zonas habilitadas, costos y reglas de entrega por región.',
-    icon: BadgeDollarSign,
-  },
+    label: 'Métricas',
+    description: 'Visualización de datos consolidada.',
+    icon: ChartBar
+  }
 ]
 
 export default function ShippingPage() {
