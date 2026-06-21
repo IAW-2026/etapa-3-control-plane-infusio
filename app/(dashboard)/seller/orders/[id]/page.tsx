@@ -5,16 +5,18 @@ import { OrderActions } from './order-actions'
 
 const STATUS_LABELS: Record<string, string> = {
   pending: 'Pendiente',
-  confirmed: 'Confirmada',
-  shipped: 'Enviada',
+  payment_confirmed: 'Pago confirmado',
+  preparing: 'Preparando',
+  dispatched: 'Despachada',
   delivered: 'Entregada',
   cancelled: 'Cancelada',
 }
 
 const STATUS_COLORS: Record<string, string> = {
   pending: 'bg-yellow-100 text-yellow-700',
-  confirmed: 'bg-primary/15 text-primary',
-  shipped: 'bg-blue-100 text-blue-700',
+  payment_confirmed: 'bg-primary/15 text-primary',
+  preparing: 'bg-blue-50 text-blue-600',
+  dispatched: 'bg-blue-100 text-blue-700',
   delivered: 'bg-green-100 text-green-700',
   cancelled: 'bg-muted text-muted-foreground',
 }
