@@ -1,8 +1,8 @@
 const BUYER_URL = process.env.BUYER_APP_URL!
-const CONTROL_PLANE_KEY = process.env.CONTROL_PLANE_KEY!
+const BUYER_API_KEY = process.env.BUYER_API_KEY!
 
 function authHeaders() {
-  return { Authorization: `Bearer ${CONTROL_PLANE_KEY}` }
+  return { Authorization: `Bearer ${BUYER_API_KEY}` }
 }
 
 export interface CartItem {
