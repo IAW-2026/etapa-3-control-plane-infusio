@@ -50,7 +50,7 @@ export default function ShippingPage() {
         {sections.map(({ label, href, description, icon: Icon }) => (
           <Link
             key={label}
-            href={shippingAppUrl}
+            href={href}
             target="_blank"
             rel="noreferrer"
             className="rounded-2xl border border-border bg-card p-6 flex items-start gap-4 hover:border-primary/40 transition-colors group"
