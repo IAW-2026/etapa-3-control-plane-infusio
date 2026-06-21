@@ -100,6 +100,7 @@ export default async function ShippingMetricsPage() {
 	const stats = dashboard.stats ?? {}
 	const monthlyShipments = dashboard.monthlyShipments ?? []
 	const latestShipments = dashboard.latestShipments ?? []
+	const recentShipments = latestShipments.slice(0, 10)
 	const users = dashboard.users ?? []
 	const maxMonthly = Math.max(...monthlyShipments.map((item) => item.envios), 1)
 
@@ -204,11 +205,11 @@ export default async function ShippingMetricsPage() {
 						<p className="text-sm text-muted-foreground">Movimientos más recientes del tablero.</p>
 					</div>
 
-					<div className="space-y-4">
-						{latestShipments.length === 0 ? (
+					<div className="max-h-136 space-y-4 overflow-y-auto pr-1">
+						{recentShipments.length === 0 ? (
 							<p className="py-8 text-sm text-muted-foreground">No hay envíos recientes.</p>
 						) : (
-							latestShipments.map((shipment) => (
+							recentShipments.map((shipment) => (
 								<article key={shipment.code} className="rounded-xl border border-border p-4">
 									<div className="mb-3 flex items-start justify-between gap-3">
 										<div>
@@ -229,49 +230,6 @@ export default async function ShippingMetricsPage() {
 						)}
 					</div>
 				</section>
-			</div>
-
-			<div className="mt-6 grid gap-6 lg:grid-cols-5">
-				<section className="rounded-2xl border border-border bg-card p-6 lg:col-span-3">
-					<div className="mb-5">
-						<h2 className="text-lg font-medium text-foreground">Usuarios asociados</h2>
-						<p className="text-sm text-muted-foreground">Cuentas que aparecen en el dashboard remoto.</p>
-					</div>
-
-					<div className="space-y-3">
-						{users.length === 0 ? (
-							<p className="py-8 text-sm text-muted-foreground">No hay usuarios cargados.</p>
-						) : (
-							users.map((user) => (
-								<div key={user.id} className="flex items-center gap-3 rounded-xl border border-border p-4">
-									<span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
-										<Users className="h-4 w-4" aria-hidden="true" />
-									</span>
-									<div className="min-w-0">
-										<p className="font-medium text-foreground">{user.name}</p>
-										<p className="truncate text-sm text-muted-foreground">{user.email}</p>
-									</div>
-								</div>
-							))
-						)}
-					</div>
-				</section>
-
-				<aside className="rounded-2xl border border-border bg-card p-6 lg:col-span-2">
-					<h2 className="text-lg font-medium text-foreground">Resumen</h2>
-					<p className="mt-2 text-sm leading-7 text-muted-foreground">
-						Esta vista consume <span className="font-medium text-foreground">/api/admin/dashboard</span> de la app de shipping y muestra el estado operativo general.
-					</p>
-
-					<Link
-						href={shippingAppUrl}
-						target="_blank"
-						rel="noreferrer"
-						className="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-border bg-muted px-4 py-3 text-sm font-medium text-foreground hover:border-primary/40 hover:text-primary transition-colors"
-					>
-						Abrir Shipping App
-					</Link>
-				</aside>
 			</div>
 		</div>
 	)
