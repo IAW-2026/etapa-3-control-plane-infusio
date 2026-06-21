@@ -8,6 +8,8 @@ import {
 	Users,
 } from 'lucide-react'
 
+import { ShipmentStatusActions } from './shipment-status-actions'
+
 const shippingAppUrl =
 	process.env.SHIPPING_APP_URL ?? 'https://proyecto-c-shipping-infusio.vercel.app'
 const shippingApiKey = process.env.SHIPPING_API_KEY!
@@ -208,12 +210,13 @@ export default async function ShippingShipmentsPage() {
 										<th className="px-4 py-3 text-left font-medium text-muted-foreground">Asignación</th>
 										<th className="px-4 py-3 text-left font-medium text-muted-foreground">Fechas</th>
 										<th className="px-4 py-3 text-left font-medium text-muted-foreground">Estado</th>
+													<th className="px-4 py-3 text-left font-medium text-muted-foreground">Acción</th>
 									</tr>
 								</thead>
 								<tbody>
 									{shipments.length === 0 ? (
 										<tr>
-											<td colSpan={7} className="px-4 py-10 text-center text-muted-foreground">
+													<td colSpan={8} className="px-4 py-10 text-center text-muted-foreground">
 												No hay envíos disponibles.
 											</td>
 										</tr>
@@ -282,6 +285,12 @@ export default async function ShippingShipmentsPage() {
 																Inactivo
 															</span>
 														)}
+													</td>
+													<td className="px-4 py-3 align-top">
+														<ShipmentStatusActions
+															shipmentId={shipment.id}
+															currentStatus={status}
+														/>
 													</td>
 												</tr>
 										)
