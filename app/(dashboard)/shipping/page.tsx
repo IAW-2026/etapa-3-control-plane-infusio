@@ -8,7 +8,7 @@ const sections = [
   {
     label: 'Envíos',
     href: "/shipping/shipments",
-    description: 'Despachos activos y cambios de estado desde el módulo de shipping.',
+    description: 'Despachos activos y cambios de estado.',
     icon: Truck,
   },
   {
