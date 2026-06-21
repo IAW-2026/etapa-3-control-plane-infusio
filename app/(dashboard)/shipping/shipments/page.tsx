@@ -8,6 +8,7 @@ import {
 	Users,
 } from 'lucide-react'
 
+import { ShipmentCreateForm } from './shipment-create-form'
 import { ShipmentStatusActions } from './shipment-status-actions'
 
 const shippingAppUrl =
@@ -156,35 +157,10 @@ export default async function ShippingShipmentsPage() {
 					Volver
 				</Link>
 			</div>
-
-			<div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-				<MetricCard
-					label="Envíos totales"
-					value={String(total)}
-					description="Registros visibles en el control plane"
-					icon={Truck}
-				/>
-				<MetricCard
-					label="Activos"
-					value={String(activeCount)}
-					description="Envíos que siguen operativos"
-					icon={Route}
-				/>
-				<MetricCard
-					label="Asignados"
-					value={String(assignedCount)}
-					description="Con delivery assignment creado"
-					icon={Users}
-				/>
-				<MetricCard
-					label="Entregados"
-					value={String(deliveredCount)}
-					description="Con tracking finalizado"
-					icon={PackageCheck}
-				/>
-			</div>
-
+            
 			<div className="mt-6 grid gap-6 lg:grid-cols-5">
+				<ShipmentCreateForm />
+
 				<section className="rounded-2xl border border-border bg-card p-6 lg:col-span-5">
 					<div className="mb-5 flex items-center justify-between gap-3">
 						<div>
