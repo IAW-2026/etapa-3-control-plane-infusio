@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ShoppingBag, Store, Truck, CreditCard } from 'lucide-react'
+import { ShoppingBag, Store, Truck, CreditCard, UsersRound } from 'lucide-react'
 import { UserButton } from '@clerk/nextjs'
 
 const nav = [
   { href: '/buyer', label: 'Buyer', icon: ShoppingBag },
   { href: '/seller', label: 'Seller', icon: Store },
   { href: '/shipping', label: 'Shipping', icon: Truck },
+  { href: '/system-users', label: 'Usuarios del sistema', icon: UsersRound },
   { href: '/payments', label: 'Payments', icon: CreditCard },
 ]
 
