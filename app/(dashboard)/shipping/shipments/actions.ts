@@ -37,8 +37,8 @@ export async function updateShipmentStatusAction(
 
 		const shipment = shipmentsData.shipments?.find((item) => item.id === shippingId)
 		const currentStatus = shipment?.Tracking[shipment.Tracking.length - 1]?.status
-		if (currentStatus === 'DELIVERED') {
-			return { error: 'No se puede modificar un shipment entregado.' }
+		if (currentStatus === 'DELIVERED' || currentStatus === 'CANCELLED') {
+			return { error: 'No se puede modificar un shipment entregado o cancelado.' }
 		}
 
 		const res = await fetch(`${shippingAppUrl}/api/shipping/status-update/${shippingId}`, {

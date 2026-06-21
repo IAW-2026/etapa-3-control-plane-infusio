@@ -23,6 +23,7 @@ interface ShipmentStatusActionsProps {
 export function ShipmentStatusActions({ shipmentId, currentStatus }: ShipmentStatusActionsProps) {
 	const router = useRouter()
 	const isDelivered = currentStatus === 'DELIVERED'
+	const isCancelled = currentStatus === 'CANCELLED'
 	const [status, setStatus] = useState(currentStatus)
 	const [isPending, startTransition] = useTransition()
 	const [error, setError] = useState<string | null>(null)
@@ -43,14 +44,18 @@ export function ShipmentStatusActions({ shipmentId, currentStatus }: ShipmentSta
 		})
 	}
 
-	if (isDelivered) {
+	if (isDelivered || isCancelled) {
 		return (
 			<div className="flex min-w-55 flex-col gap-2">
-				<span className="inline-flex w-fit rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
-					Entregado
+				<span
+					className={`inline-flex w-fit rounded-full px-2.5 py-0.5 text-xs font-medium ${
+						isDelivered ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+					}`}
+				>
+					{isDelivered ? 'Entregado' : 'Cancelado'}
 				</span>
 				<p className="text-xs text-muted-foreground">
-					No se puede modificar un envío entregado.
+					No se puede modificar un envío {isDelivered ? 'entregado' : 'cancelado'}.
 				</p>
 			</div>
 		)

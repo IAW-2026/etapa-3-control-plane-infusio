@@ -24,11 +24,7 @@ export function ShipmentCreateForm() {
 	}
 
 	return (
-		<section className="rounded-2xl border border-border bg-card p-6 lg:col-span-5">
-			<div className="mb-5">
-				<h2 className="text-lg font-medium text-foreground">Crear nuevo envío</h2>
-			</div>
-
+		<div className="space-y-5">
 			<form action={handleSubmit} className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
 				<label className="flex flex-col gap-2">
 					<span className="text-sm text-muted-foreground">Order ID</span>
@@ -113,6 +109,6 @@ export function ShipmentCreateForm() {
 					{error && <p className="text-sm text-destructive">{error}</p>}
 				</div>
 			</form>
-		</section>
+		</div>
 	)
 }

@@ -4,6 +4,7 @@ import {
 	MapPinned,
 	PackageCheck,
 	Route,
+	ChevronDown,
 	Truck,
 	Users,
 } from 'lucide-react'
@@ -68,7 +69,7 @@ function statusClass(status: string) {
 		case 'DELIVERED':
 			return 'bg-green-100 text-green-700'
 		case 'CANCELLED':
-			return 'bg-muted text-muted-foreground'
+			return 'bg-red-100 text-red-700'
 		default:
 			return 'bg-muted text-muted-foreground'
 	}
@@ -159,124 +160,137 @@ export default async function ShippingShipmentsPage() {
 			</div>
             
 			<div className="mt-6 grid gap-6 lg:grid-cols-5">
-				<ShipmentCreateForm />
-
-				<section className="rounded-2xl border border-border bg-card p-6 lg:col-span-5">
-					<div className="mb-5 flex items-center justify-between gap-3">
-						<div>
-							<h2 className="text-lg font-medium text-foreground">Listado de envíos</h2>
-							<p className="text-sm text-muted-foreground">
-								Información consolidada desde /api/control-plane/shipments.
-							</p>
-						</div>
-						<span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-							{total} registros
+				<details className="group rounded-2xl border border-border bg-card p-6 lg:col-span-5">
+					<summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-lg font-medium text-foreground [&::-webkit-details-marker]:hidden">
+						<span>Crear nuevo envío</span>
+						<span className="flex items-center gap-2 text-sm font-normal text-muted-foreground">
+							<ChevronDown className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
 						</span>
+					</summary>
+					<div className="pt-6">
+						<ShipmentCreateForm />
 					</div>
+				</details>
 
-					<div className="overflow-hidden rounded-2xl border border-border">
-						<div className="max-h-168 overflow-y-auto">
-							<table className="w-full text-sm">
-								<thead className="sticky top-0 z-10 bg-muted/95 backdrop-blur supports-backdrop-filter:bg-muted/80">
-									<tr className="border-b border-border">
-										<th className="px-4 py-3 text-left font-medium text-muted-foreground">ID</th>
-										<th className="px-4 py-3 text-left font-medium text-muted-foreground">Origen</th>
-										<th className="px-4 py-3 text-left font-medium text-muted-foreground">Destino</th>
-										<th className="px-4 py-3 text-left font-medium text-muted-foreground">Tracking</th>
-										<th className="px-4 py-3 text-left font-medium text-muted-foreground">Asignación</th>
-										<th className="px-4 py-3 text-left font-medium text-muted-foreground">Fechas</th>
-										<th className="px-4 py-3 text-left font-medium text-muted-foreground">Estado</th>
-													<th className="px-4 py-3 text-left font-medium text-muted-foreground">Acción</th>
-									</tr>
-								</thead>
-								<tbody>
-									{shipments.length === 0 ? (
-										<tr>
-													<td colSpan={8} className="px-4 py-10 text-center text-muted-foreground">
-												No hay envíos disponibles.
-											</td>
+				<details className="group rounded-2xl border border-border bg-card p-6 lg:col-span-5">
+					<summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-lg font-medium text-foreground [&::-webkit-details-marker]:hidden">
+						<span>Listado de envíos</span>
+						<span className="flex items-center gap-2">
+							<span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+								{total} registros
+							</span>
+							<ChevronDown className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-open:rotate-180" aria-hidden="true" />
+						</span>
+					</summary>
+					<div className="pt-6">
+						<p className="mb-5 text-sm text-muted-foreground">
+							Información consolidada desde /api/control-plane/shipments.
+						</p>
+
+						<div className="overflow-hidden rounded-2xl border border-border">
+							<div className="max-h-168 overflow-y-auto">
+								<table className="w-full text-sm">
+									<thead className="sticky top-0 z-10 bg-muted/95 backdrop-blur supports-backdrop-filter:bg-muted/80">
+										<tr className="border-b border-border">
+											<th className="px-4 py-3 text-left font-medium text-muted-foreground">ID</th>
+											<th className="px-4 py-3 text-left font-medium text-muted-foreground">Origen</th>
+											<th className="px-4 py-3 text-left font-medium text-muted-foreground">Destino</th>
+											<th className="px-4 py-3 text-left font-medium text-muted-foreground">Tracking</th>
+											<th className="px-4 py-3 text-left font-medium text-muted-foreground">Asignación</th>
+											<th className="px-4 py-3 text-left font-medium text-muted-foreground">Fechas</th>
+											<th className="px-4 py-3 text-left font-medium text-muted-foreground">Estado</th>
+											<th className="px-4 py-3 text-left font-medium text-muted-foreground">Acción</th>
 										</tr>
-									) : (
-										shipments.map((shipment) => {
-											const latestTracking = getLatestTracking(shipment)
-											const status = latestTracking?.status ?? 'SIN_TRACKING'
+									</thead>
+									<tbody>
+										{shipments.length === 0 ? (
+											<tr>
+												<td colSpan={8} className="px-4 py-10 text-center text-muted-foreground">
+													No hay envíos disponibles.
+												</td>
+											</tr>
+										) : (
+											shipments.map((shipment) => {
+												const latestTracking = getLatestTracking(shipment)
+												const status = latestTracking?.status ?? 'SIN_TRACKING'
 
-											return (
-												<tr
-													key={shipment.id}
-													className="border-b border-border last:border-0 hover:bg-muted/40 transition-colors"
-												>
-													<td className="px-4 py-3 align-top">
-														<div>
-															<p className="font-mono text-xs text-muted-foreground">{shipment.id}</p>
-															<p className="mt-1 text-xs text-muted-foreground">
-																{shipment.active ? 'Activo' : 'Inactivo'}
-															</p>
-														</div>
-													</td>
-													<td className="px-4 py-3 align-top max-w-60">
-														<p className="text-foreground">{shipment.origin}</p>
-														<p className="mt-1 text-xs text-muted-foreground">{formatDateOnly(shipment.originDatetime)}</p>
-													</td>
-													<td className="px-4 py-3 align-top max-w-60">
-														<p className="text-foreground">{shipment.destination}</p>
-														<p className="mt-1 text-xs text-muted-foreground">{formatDateOnly(shipment.destinationDatetime)}</p>
-													</td>
-													<td className="px-4 py-3 align-top">
-														{latestTracking ? (
-															<div className="space-y-1">
-																<span
-																	className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${statusClass(
-																		status,
-																	)}`}
-																>
-																	{status}
-																</span>
-																<p className="text-xs text-muted-foreground">{latestTracking.currentCity}</p>
-																<p className="text-xs text-muted-foreground">
-																	{formatDate(latestTracking.datetime)}
+												return (
+													<tr
+														key={shipment.id}
+														className="border-b border-border last:border-0 hover:bg-muted/40 transition-colors"
+													>
+														<td className="px-4 py-3 align-top">
+															<div>
+																<p className="font-mono text-xs text-muted-foreground">{shipment.id}</p>
+																<p className="mt-1 text-xs text-muted-foreground">
+																	{shipment.active ? 'Activo' : 'Inactivo'}
 																</p>
 															</div>
-														) : (
-															<span className="text-xs text-muted-foreground">Sin tracking</span>
-														)}
-													</td>
-													<td className="px-4 py-3 align-top">
-														<div>
-															<p className="font-medium text-foreground">{shipment.DeliveryAssignment.length}</p>
-															<p className="text-xs text-muted-foreground">asignaciones</p>
-														</div>
-													</td>
-													<td className="px-4 py-3 align-top text-muted-foreground">
-														<p>{formatDateOnly(shipment.originDatetime)}</p>
-														<p>{formatDateOnly(shipment.destinationDatetime)}</p>
-													</td>
-													<td className="px-4 py-3 align-top">
-														{shipment.active ? (
-															<span className="inline-flex rounded-full bg-primary/15 px-2.5 py-0.5 text-xs font-medium text-primary">
-																Activo
-															</span>
-														) : (
-															<span className="inline-flex rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
-																Inactivo
-															</span>
-														)}
-													</td>
-													<td className="px-4 py-3 align-top">
-														<ShipmentStatusActions
-															shipmentId={shipment.id}
-															currentStatus={status}
-														/>
-													</td>
-												</tr>
-										)
-									})
-								)}
-							</tbody>
-						</table>
+														</td>
+														<td className="px-4 py-3 align-top max-w-60">
+															<p className="text-foreground">{shipment.origin}</p>
+															<p className="mt-1 text-xs text-muted-foreground">{formatDateOnly(shipment.originDatetime)}</p>
+														</td>
+														<td className="px-4 py-3 align-top max-w-60">
+															<p className="text-foreground">{shipment.destination}</p>
+															<p className="mt-1 text-xs text-muted-foreground">{formatDateOnly(shipment.destinationDatetime)}</p>
+														</td>
+														<td className="px-4 py-3 align-top">
+															{latestTracking ? (
+																<div className="space-y-1">
+																	<span
+																		className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${statusClass(
+																			status,
+																		)}`}
+																	>
+																		{status}
+																	</span>
+																	<p className="text-xs text-muted-foreground">{latestTracking.currentCity}</p>
+																	<p className="text-xs text-muted-foreground">
+																		{formatDate(latestTracking.datetime)}
+																	</p>
+																</div>
+															) : (
+																<span className="text-xs text-muted-foreground">Sin tracking</span>
+															)}
+														</td>
+														<td className="px-4 py-3 align-top">
+															<div>
+																<p className="font-medium text-foreground">{shipment.DeliveryAssignment.length}</p>
+																<p className="text-xs text-muted-foreground">asignaciones</p>
+															</div>
+														</td>
+														<td className="px-4 py-3 align-top text-muted-foreground">
+															<p>{formatDateOnly(shipment.originDatetime)}</p>
+															<p>{formatDateOnly(shipment.destinationDatetime)}</p>
+														</td>
+														<td className="px-4 py-3 align-top">
+															{shipment.active ? (
+																<span className="inline-flex rounded-full bg-primary/15 px-2.5 py-0.5 text-xs font-medium text-primary">
+																	Activo
+																</span>
+															) : (
+																<span className="inline-flex rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+																	Inactivo
+																</span>
+															)}
+														</td>
+														<td className="px-4 py-3 align-top">
+															<ShipmentStatusActions
+																shipmentId={shipment.id}
+																currentStatus={status}
+															/>
+														</td>
+													</tr>
+												)
+											})
+										)}
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
-				</section>
+				</details>
 			</div>
 		</div>
 	)
