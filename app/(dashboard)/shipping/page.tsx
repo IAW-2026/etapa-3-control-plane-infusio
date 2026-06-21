@@ -14,7 +14,7 @@ const sections = [
   {
     label: 'Usuarios',
     href: "/shipping/users",
-    description: 'Usuarios repartidores y operadores logísticos.',
+    description: 'Riders y operadores logísticos de Clerk.',
     icon: User,
   },
   {
