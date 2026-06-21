@@ -5,8 +5,9 @@ import { updateOrderStatusAction } from '../actions'
 
 const STATUSES = [
   { value: 'pending', label: 'Pendiente' },
-  { value: 'confirmed', label: 'Confirmada' },
-  { value: 'shipped', label: 'Enviada' },
+  { value: 'payment_confirmed', label: 'Pago confirmado' },
+  { value: 'preparing', label: 'Preparando' },
+  { value: 'dispatched', label: 'Despachada' },
   { value: 'delivered', label: 'Entregada' },
   { value: 'cancelled', label: 'Cancelada' },
 ]
