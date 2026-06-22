@@ -11,6 +11,7 @@ Todas las apps usan el header `Authorization: Bearer <key>`. Cada app tiene su p
 | Buyer App | `CONTROL_PLANE_KEY` | `Authorization: Bearer <CONTROL_PLANE_KEY>` |
 | Seller App | `SELLER_API_KEY` | `Authorization: Bearer <SELLER_API_KEY>` |
 | Shipping App | `SHIPPING_API_KEY` | `Authorization: Bearer <SHIPPING_API_KEY>` |
+| Payments App | `PAYMENTS_API_KEY` | `x-api-key: <PAYMENTS_API_KEY>` |
 
 ## Clientes HTTP
 
@@ -18,6 +19,7 @@ Todas las apps usan el header `Authorization: Bearer <key>`. Cada app tiene su p
 |---------|-----|---------------------|
 | `app/lib/buyer.ts` | Buyer App | `getCarts`, `getCart`, `updateCart`, `deleteCart` |
 | `app/lib/seller.ts` | Seller App | `getOrders`, `getOrder`, `updateOrder`, `getProducts`, `getProduct`, `updateProduct` |
+| `app/lib/payments.ts` | Payments App | `getPaymentOrders` |
 
 Todos los fetches usan `cache: 'no-store'` para garantizar datos frescos en cada request (Server Components).
 
