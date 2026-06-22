@@ -3,48 +3,36 @@
 import { clerkClient } from '@clerk/nextjs/server'
 import { revalidatePath } from 'next/cache'
 
-const CLERK_API_URL = process.env.CLERK_API_URL ?? 'https://api.clerk.com'
-const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY
-
-function clerkHeaders() {
-  if (!CLERK_SECRET_KEY) {
-    throw new Error('CLERK_SECRET_KEY no está configurada')
-  }
-
-  return {
-    Authorization: `Bearer ${CLERK_SECRET_KEY}`,
-    'Content-Type': 'application/json',
-  }
+type PublicMetadata = {
+  roles?: string[] | string | null
 }
 
-async function updateClerkUser(userId: string, body: Record<string, unknown>) {
-  const response = await fetch(`${CLERK_API_URL}/v1/users/${userId}`, {
-    method: 'PATCH',
-    headers: clerkHeaders(),
-    body: JSON.stringify(body),
-  })
+type ClerkUser = {
+  publicMetadata?: PublicMetadata
+}
 
-  if (!response.ok) {
-    throw new Error(`Clerk API ${response.status}`)
-  }
-
-  return response.json()
+function normalizeRoles(value: PublicMetadata['roles']) {
+  const rawRoles = Array.isArray(value) ? value : typeof value === 'string' ? [value] : []
+  return rawRoles
+    .map((role) => role.toLowerCase().replace(/\s+/g, '_'))
+    .filter((role, index, roles) => roles.indexOf(role) === index)
 }
 
 export async function deleteSystemUserAction(userId: string) {
-  if (!CLERK_SECRET_KEY) {
-    throw new Error('CLERK_SECRET_KEY no está configurada')
-  }
-
   const client = await clerkClient()
   await client.users.deleteUser(userId)
   revalidatePath('/system-users')
 }
 
 export async function setSystemUserRoleAction(userId: string, role: string) {
-  await updateClerkUser(userId, {
-    public_metadata: {
-      roles: [role],
+  const client = await clerkClient()
+  const user = (await client.users.getUser(userId)) as ClerkUser
+  const currentRoles = normalizeRoles(user.publicMetadata?.roles)
+  const nextRoles = Array.from(new Set([...currentRoles, role]))
+
+  await client.users.updateUserMetadata(userId, {
+    publicMetadata: {
+      roles: nextRoles,
     },
   })
 
@@ -52,8 +40,9 @@ export async function setSystemUserRoleAction(userId: string, role: string) {
 }
 
 export async function clearSystemUserRolesAction(userId: string) {
-  await updateClerkUser(userId, {
-    public_metadata: {
+  const client = await clerkClient()
+  await client.users.updateUserMetadata(userId, {
+    publicMetadata: {
       roles: [],
     },
   })

@@ -81,6 +81,16 @@ function UserCard({ user }: { user: UserRecord }) {
             Seller
           </button>
         </form>
+        <form action={setSystemUserRoleAction.bind(null, user.id, 'rider')}>
+          <button type="submit" className="btn btn-outline btn-sm">
+            Repartidor
+          </button>
+        </form>
+        <form action={setSystemUserRoleAction.bind(null, user.id, 'logistic_operator')}>
+          <button type="submit" className="btn btn-outline btn-sm">
+            Operador Logístico
+          </button>
+        </form>
         <form action={clearSystemUserRolesAction.bind(null, user.id)}>
           <button type="submit" className="btn btn-outline btn-sm">
             Quitar roles
