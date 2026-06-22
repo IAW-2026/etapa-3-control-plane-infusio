@@ -12,6 +12,7 @@ CLERK_WEBHOOK_SECRET=
 CONTROL_PLANE_KEY=       # Key que el Control Plane usa para autenticarse ante la Buyer App
 SELLER_API_KEY=          # Key para autenticarse ante la Seller App
 SHIPPING_API_KEY=        # Key para autenticarse ante la Shipping App
+PAYMENTS_API_KEY=        # Key para autenticarse ante la Payments App
 
 # URLs de las apps individuales
 BUYER_APP_URL=https://proyecto-c-buyer-infusio.vercel.app
@@ -30,6 +31,7 @@ PAYMENTS_APP_URL=https://proyecto-c-payments-infusio.vercel.app
 | `CONTROL_PLANE_KEY` | Generada por el equipo, compartida con la Buyer App |
 | `SELLER_API_KEY` | Generada en la Seller App (`API_KEY` en su Vercel) |
 | `SHIPPING_API_KEY` | Generada en la Shipping App |
+| `PAYMENTS_API_KEY` | Generada en la Payments App |
 
 ## En Vercel
 
