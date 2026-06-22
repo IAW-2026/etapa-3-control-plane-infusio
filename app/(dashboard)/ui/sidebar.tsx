@@ -10,7 +10,7 @@ const nav = [
   { href: '/seller', label: 'Seller', icon: Store },
   { href: '/shipping', label: 'Shipping', icon: Truck },
   { href: '/payments', label: 'Payments', icon: CreditCard },
-  { href: 'system-users', label: 'Usuarios del sistema', icon: User}
+  { href: '/system-users', label: 'Usuarios del sistema', icon: User}
 ]
 
 export function Sidebar() {
