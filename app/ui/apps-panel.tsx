@@ -30,9 +30,9 @@ const apps = [
 
 export function AppsPanel() {
   return (
-    <section className="rounded-3xl border border-border bg-card p-7 shadow-sm">
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="font-heading text-xl text-card-foreground">Apps conectadas</h2>
+    <section className="rounded-3xl border border-border bg-card p-5 shadow-sm sm:p-7">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="font-heading text-lg text-card-foreground sm:text-xl">Apps conectadas</h2>
         <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium tracking-wide text-primary-foreground">
           4 MÓDULOS
         </span>
@@ -42,8 +42,8 @@ export function AppsPanel() {
         {apps.map((app, index) => (
           <li
             key={app.name}
-            className={`flex items-center gap-4 py-4 ${
-              index !== apps.length - 1 ? "border-b border-border" : ""
+            className={`flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:gap-4 ${
+              index !== apps.length - 1 ? 'border-b border-border' : ''
             }`}
           >
             <Link href={app.href} className="flex items-center gap-4 flex-1 min-w-0 group">
@@ -55,7 +55,7 @@ export function AppsPanel() {
                 <p className="text-sm text-muted-foreground">{app.description}</p>
               </div>
             </Link>
-            <span className="ml-auto h-2.5 w-2.5 shrink-0 rounded-full bg-primary" aria-label="Activo" />
+            <span className="ml-0 h-2.5 w-2.5 shrink-0 rounded-full bg-primary sm:ml-auto" aria-label="Activo" />
           </li>
         ))}
       </ul>
