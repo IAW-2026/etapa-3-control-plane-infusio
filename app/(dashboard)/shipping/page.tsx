@@ -28,7 +28,7 @@ const sections = [
 export default function ShippingPage() {
   return (
     <div>
-      <div className="mb-8 flex items-start justify-between gap-4">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-1">
             Shipping App
@@ -40,7 +40,7 @@ export default function ShippingPage() {
           href={shippingAppUrl}
           target="_blank"
           rel="noreferrer"
-          className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+          className="inline-flex w-full items-center justify-center rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary/40 hover:text-primary sm:w-auto"
         >
           Abrir app
         </Link>

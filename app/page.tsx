@@ -6,7 +6,7 @@ export default function Page() {
     <main className="min-h-svh flex flex-col">
       <SiteHeader />
 
-      <div className="mx-auto grid flex-1 max-w-6xl items-center gap-12 px-6 py-10 md:px-10 md:py-16 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto grid flex-1 max-w-6xl items-center gap-10 px-4 py-8 sm:px-6 sm:py-10 md:px-10 md:py-16 lg:grid-cols-2 lg:gap-16">
         <section className="flex max-w-3xl flex-col pt-2 sm:pt-4 lg:self-center">
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.28em] text-primary sm:text-sm">
             Control Panel
@@ -20,7 +20,6 @@ export default function Page() {
           </p>
         </section>
 
-        {/* Columna derecha: panel de apps */}
         <div className="lg:pl-4">
           <AppsPanel />
         </div>
