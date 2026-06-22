@@ -1,6 +1,11 @@
 import Link from 'next/link'
 import { ArrowLeft, BadgeCheck, UsersRound } from 'lucide-react'
 import { clerkClient } from '@clerk/nextjs/server'
+import {
+  clearSystemUserRolesAction,
+  deleteSystemUserAction,
+  setSystemUserRoleAction,
+} from './actions'
 
 type ClerkUser = Awaited<ReturnType<typeof clerkClient>> extends infer Client
   ? Client extends { users: { getUserList: (...args: any[]) => Promise<{ data: UserRecord[] }> } }
@@ -41,6 +46,8 @@ async function getClerkUsers() {
 }
 
 function UserCard({ user }: { user: UserRecord }) {
+  const roleLabel = getRoleLabel(user.publicMetadata?.roles)
+
   return (
     <article className="rounded-2xl border border-border bg-card p-5 transition-colors hover:border-primary/40">
       <div className="flex items-start justify-between gap-3">
@@ -49,13 +56,41 @@ function UserCard({ user }: { user: UserRecord }) {
           <p className="mt-1 truncate text-sm text-muted-foreground">{emailAddress(user)}</p>
         </div>
         <span className="inline-flex rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-          {getRoleLabel(user.publicMetadata?.roles)}
+          {roleLabel}
         </span>
       </div>
 
       <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
         <BadgeCheck className="h-4 w-4" aria-hidden="true" />
         <span className="font-mono">{user.id}</span>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <form action={setSystemUserRoleAction.bind(null, user.id, 'admin')}>
+          <button type="submit" className="btn btn-outline btn-sm">
+            Admin
+          </button>
+        </form>
+        <form action={setSystemUserRoleAction.bind(null, user.id, 'buyer')}>
+          <button type="submit" className="btn btn-outline btn-sm">
+            Buyer
+          </button>
+        </form>
+        <form action={setSystemUserRoleAction.bind(null, user.id, 'seller')}>
+          <button type="submit" className="btn btn-outline btn-sm">
+            Seller
+          </button>
+        </form>
+        <form action={clearSystemUserRolesAction.bind(null, user.id)}>
+          <button type="submit" className="btn btn-outline btn-sm">
+            Quitar roles
+          </button>
+        </form>
+        <form action={deleteSystemUserAction.bind(null, user.id)}>
+          <button type="submit" className="btn btn-destructive btn-sm">
+            Eliminar
+          </button>
+        </form>
       </div>
     </article>
   )
