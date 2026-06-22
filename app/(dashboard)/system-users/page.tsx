@@ -67,37 +67,37 @@ function UserCard({ user }: { user: UserRecord }) {
 
       <div className="mt-4 flex flex-wrap gap-2">
         <form action={setSystemUserRoleAction.bind(null, user.id, 'admin')}>
-          <button type="submit" className="btn btn-outline btn-sm">
+          <button type="submit" className="btn btn-outline btn-sm w-full sm:w-auto">
             Admin
           </button>
         </form>
         <form action={setSystemUserRoleAction.bind(null, user.id, 'buyer')}>
-          <button type="submit" className="btn btn-outline btn-sm">
+          <button type="submit" className="btn btn-outline btn-sm w-full sm:w-auto">
             Buyer
           </button>
         </form>
         <form action={setSystemUserRoleAction.bind(null, user.id, 'seller')}>
-          <button type="submit" className="btn btn-outline btn-sm">
+          <button type="submit" className="btn btn-outline btn-sm w-full sm:w-auto">
             Seller
           </button>
         </form>
         <form action={setSystemUserRoleAction.bind(null, user.id, 'rider')}>
-          <button type="submit" className="btn btn-outline btn-sm">
+          <button type="submit" className="btn btn-outline btn-sm w-full sm:w-auto">
             Repartidor
           </button>
         </form>
         <form action={setSystemUserRoleAction.bind(null, user.id, 'logistic_operator')}>
-          <button type="submit" className="btn btn-outline btn-sm">
+          <button type="submit" className="btn btn-outline btn-sm w-full sm:w-auto">
             Operador Logístico
           </button>
         </form>
         <form action={clearSystemUserRolesAction.bind(null, user.id)}>
-          <button type="submit" className="btn btn-outline btn-sm">
+          <button type="submit" className="btn btn-outline btn-sm w-full sm:w-auto">
             Quitar roles
           </button>
         </form>
         <form action={deleteSystemUserAction.bind(null, user.id)}>
-          <button type="submit" className="btn btn-destructive btn-sm">
+          <button type="submit" className="btn btn-destructive btn-sm w-full sm:w-auto">
             Eliminar
           </button>
         </form>
@@ -139,7 +139,7 @@ export default async function SystemUsersPage() {
         <span>Usuarios del sistema</span>
       </div>
 
-      <div className="mb-6 flex items-start justify-between gap-4">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-1">
             Clerk
@@ -149,7 +149,7 @@ export default async function SystemUsersPage() {
 
         <Link
           href="/shipping"
-          className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground hover:border-primary/40 hover:text-primary transition-colors"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary/40 hover:text-primary sm:w-auto"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Volver

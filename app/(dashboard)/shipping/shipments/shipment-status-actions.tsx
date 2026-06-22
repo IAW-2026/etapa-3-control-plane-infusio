@@ -46,7 +46,7 @@ export function ShipmentStatusActions({ shipmentId, currentStatus }: ShipmentSta
 
 	if (isDelivered || isCancelled) {
 		return (
-			<div className="flex min-w-55 flex-col gap-2">
+			<div className="flex w-full max-w-sm flex-col gap-2">
 				<span
 					className={`inline-flex w-fit rounded-full px-2.5 py-0.5 text-xs font-medium ${
 						isDelivered ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
@@ -62,7 +62,7 @@ export function ShipmentStatusActions({ shipmentId, currentStatus }: ShipmentSta
 	}
 
 	return (
-		<div className="flex min-w-55 flex-col gap-2">
+		<div className="flex w-full max-w-sm flex-col gap-2">
 			<select
 				value={status}
 				onChange={(e) => {
@@ -70,7 +70,7 @@ export function ShipmentStatusActions({ shipmentId, currentStatus }: ShipmentSta
 					setSuccess(false)
 				}}
 				disabled={isPending}
-				className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground"
+				className="w-full rounded-xl border border-border bg-background px-3 py-2 text-sm text-foreground"
 			>
 				{STATUSES.map((option) => (
 					<option key={option.value} value={option.value}>
@@ -83,7 +83,7 @@ export function ShipmentStatusActions({ shipmentId, currentStatus }: ShipmentSta
 				type="button"
 				onClick={handleUpdate}
 				disabled={isPending || status === currentStatus}
-				className="btn btn-default btn-sm"
+				className="btn btn-default btn-sm w-full"
 			>
 				{isPending ? 'Actualizando…' : 'Actualizar'}
 			</button>
