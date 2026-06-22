@@ -14,7 +14,7 @@ export default async function PaymentsPage({
 
   let data
   try {
-    data = await getPaymentOrders({ page, limit: PAGE_SIZE })
+    data = await getPaymentOrders()
   } catch {
     return (
       <p className="text-sm text-destructive">
@@ -23,7 +23,11 @@ export default async function PaymentsPage({
     )
   }
 
-  const { orders, total, totalPages } = data
+  const { orders, total } = data
+  const totalPages = Math.max(1, Math.ceil(orders.length / PAGE_SIZE))
+  const currentPage = Math.min(Math.max(page, 1), totalPages)
+  const startIndex = (currentPage - 1) * PAGE_SIZE
+  const visibleOrders = orders.slice(startIndex, startIndex + PAGE_SIZE)
 
   function pageHref(p: number) {
     return `/payments?${new URLSearchParams({ page: String(p) })}`
@@ -87,12 +91,12 @@ export default async function PaymentsPage({
       </div>
 
       <div className="space-y-4">
-        {orders.length === 0 ? (
+        {visibleOrders.length === 0 ? (
           <div className="rounded-2xl border border-border bg-card px-4 py-10 text-center text-muted-foreground">
             No hay órdenes de pago.
           </div>
         ) : (
-          orders.map((order) => {
+          visibleOrders.map((order) => {
             const entries = Object.entries(order)
 
             return (
@@ -139,16 +143,16 @@ export default async function PaymentsPage({
       <div className="mt-6 flex items-center justify-between gap-4 text-sm text-muted-foreground">
         <span>{total} órdenes en total</span>
         <div className="flex items-center gap-2">
-          {page > 1 && (
-            <Link href={pageHref(page - 1)} className="btn btn-outline btn-sm">
+          {currentPage > 1 && (
+            <Link href={pageHref(currentPage - 1)} className="btn btn-outline btn-sm">
               ← Anterior
             </Link>
           )}
           <span>
-            Página {page} de {totalPages}
+            Página {currentPage} de {totalPages}
           </span>
-          {page < totalPages && (
-            <Link href={pageHref(page + 1)} className="btn btn-outline btn-sm">
+          {currentPage < totalPages && (
+            <Link href={pageHref(currentPage + 1)} className="btn btn-outline btn-sm">
               Siguiente →
             </Link>
           )}
